@@ -1,4 +1,11 @@
 ---
+- name: install a web server to host late_command.sh
+  apt:
+    name: "{{ item }}"
+  with_items:
+  - nginx
+  - python
+
 - name: download TFTP boot image
   get_url:
     url: "{{ netboot_image }}"
@@ -11,10 +18,27 @@
     remote_src: true
     creates: /srv/tftp/pxelinux.0
 
+- name: create dir for configs
+  file:
+    path: "{{ web_root }}/{{ item }}"
+    state: directory
+    recurse: true
+    # owner:  "{{ user_name }}"
+    # group:  "{{ user_name }}"
+  with_items:
+  - lc
+  - d-i/xenial
+
 - name: write preseed.cfg
   template:
     src: preseed.cfg.j2
-    dest: /srv/tftp/preseed.cfg
+    # dest: /srv/tftp/d-i/xenial/preseed.cfg
+    dest: "{{ web_root }}/d-i/xenial/preseed.cfg"
+
+- name: push late_command.sh
+  copy:
+    src: files/late_command.sh
+    dest: "{{ web_root }}/lc/late_command.sh"
 
 - name: inject preseed into menu (find files)
   find:
@@ -28,5 +52,6 @@
     dest: "{{ item.path }}"
     regexp: (\s+append\s+.*\s+initrd=\S+)\s+(?!auto=true)(.*)
     backrefs: true
-    line: \1 auto=true interface=auto url=tftp://10.20.0.1/preseed.cfg \2
+    line: \1 auto=true interface=auto url=http://{{ inventory_hostname }} \2
   with_items: "{{ menus.files }}"
+

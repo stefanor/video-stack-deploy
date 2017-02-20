@@ -14,6 +14,7 @@
     dest: /etc/network/interfaces
   when: use_static_ip
   notify: restart networking
+  ignore_errors: yes
 
 - name: configure network interfaces (dhcp)
   template:
@@ -21,6 +22,7 @@
     dest: /etc/network/interfaces
   when: not use_static_ip
   notify: restart networking
+  ignore_errors: yes
 
 - name: ensure network-manager doesn't run its own dnsmasq
   lineinfile:

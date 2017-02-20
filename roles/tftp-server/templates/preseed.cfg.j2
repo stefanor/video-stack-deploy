@@ -109,7 +109,7 @@ d-i mirror/http/directory string /debian
 d-i mirror/http/hostname string {{ mirror | default('archive.ubuntu.com') }}
 d-i mirror/http/directory string /ubuntu
 {% endif %}
-d-i mirror/http/proxy string {{ apt_proxy }}
+d-i mirror/http/proxy string{% if apt_proxy %}http://{{ inventory_hostname }}:8000/{% endif %}
 
 # Suite to install.
 #d-i mirror/suite string testing
@@ -235,7 +235,7 @@ d-i partman/confirm_nooverwrite boolean true
 # so this will only work if the disks are the same size.
 #d-i partman-auto/disk string /dev/sda /dev/sdb
 
-# Next you need to specify the physical partitions that will be used. 
+# Next you need to specify the physical partitions that will be used.
 #d-i partman-auto/expert_recipe string \
 #      multiraid ::                                         \
 #              1000 5000 4000 raid                          \
@@ -331,7 +331,7 @@ d-i apt-setup/local0/key string file:///hd-media/ac583520.asc
 tasksel tasksel/first multiselect standard
 
 # Individual additional packages to install
-d-i pkgsel/include string openssh-server curl
+d-i pkgsel/include string openssh-server curl python python3
 # Whether to upgrade packages after debootstrap.
 # Allowed values: none, safe-upgrade, full-upgrade
 #d-i pkgsel/upgrade select none
@@ -437,7 +437,8 @@ d-i finish-install/reboot_in_progress note
 {% if late_command_url.startswith('tftp://') %}
 d-i preseed/late_command string in-target sh -c "curl -o penultimate_setup.sh '{{ late_command_url }}' && ANSIBLE_UNDER_DI=1 sh penultimate_setup.sh && rm penultimate_setup.sh"
 {% else %}
-d-i preseed/late_command string in-target sh -c "wget -O penultimate_setup.sh '{{ late_command_url }}' && ANSIBLE_UNDER_DI=1 sh penultimate_setup.sh && rm penultimate_setup.sh"
+# d-i preseed/late_command string in-target sh -c "wget -O penultimate_setup.sh '{{ late_command_url }}' && ANSIBLE_UNDER_DI=1 sh penultimate_setup.sh && rm penultimate_setup.sh"
+d-i preseed/late_command string in-target sh -c "unset http_proxy; wget http://{{ inventory_hostname }}/lc/late_command.sh  && ANSIBLE_UNDER_DI=1 sh late_command.sh && rm late_command.sh"
 {% endif %}
 
 # don't ask for extra firmare
