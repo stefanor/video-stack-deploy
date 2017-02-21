@@ -1,12 +1,12 @@
 ---
 netboot_image: https://deb.debian.org/debian/dists/stretch/main/installer-amd64/current/images/netboot/netboot.tar.gz
 # late_command_url: https://anonscm.debian.org/cgit/debconf-video/ansible.git/plain/setup_ansible.sh
-late_command_url: http://{{ inventory_hostname }}/lc/late.sh
+late_command_url: http://{{ inventory_hostname }}/lc/late_command.sh
 
 time_zone: UTC
 domain: video.debconf.org
 
-apt_proxy: ""
+apt_proxy: false
 # Defaults to deb.debian.org | archive.ubuntu.com
 #mirror: deb.debian.org
 
