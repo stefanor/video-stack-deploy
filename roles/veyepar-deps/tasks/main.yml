@@ -1,0 +1,32 @@
+---
+- name: install parts of veyepar for encoding
+  apt:
+    name: "{{ item }}"
+  with_items:
+  - python-psycopg2
+  - libpq5
+  - imagemagick
+  - python3-gi
+  - gstreamer1.0-tools
+  - gir1.2-gstreamer-1.0
+  - gir1.2-gst-plugins-base-1.0
+  - gstreamer1.0-plugins-good
+  - gstreamer1.0-plugins-ugly
+  - gstreamer1.0-tools
+  - inkscape
+  - tmux
+  - python3-venv
+  - build-essential
+  - python3-dev
+  - libpq-dev
+
+- name: veyepar ve py pip requirements
+  pip:
+    requirements: "/home/{{ user_name }}/veyepar/setup/nodes/encode/requirements.txt"
+    virtualenv: "/home/{{ user_name }}/.virtualenvs/veyepar"
+    virtualenv_command: pyvenv
+    virtualenv_site_packages: true
+    # extra_args: --upgrade
+    state: forcereinstall
+  become: true
+  become_user:  "{{ user_name }}"

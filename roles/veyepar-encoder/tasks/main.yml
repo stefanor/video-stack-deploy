@@ -70,40 +70,12 @@
     group:  "{{ user_name }}"
 
 - name: create veyepar show dir
-  # will be full of links
   file:
     path: "/home/{{ user_name }}/Videos/veyepar/{{ org }}/{{ show }}"
     state: directory
     recurse: true
     owner:  "{{ user_name }}"
     group:  "{{ user_name }}"
-
-- name: link to local raw files (where Vocto is saving to)
-  file:
-    state: link
-    src: "/srv/video/{{ org }}/{{ show }}/dv"
-    dest: "/home/{{ user_name }}/Videos/veyepar/{{ org }}/{{ show }}/dv"
-    force: yes
-    owner:  "{{ user_name }}"
-    group:  "{{ user_name }}"
-
-- name: links from local Video dir into nfs mount (for veyepar encoder to read/write)
-  file:
-    state: link
-    src: "/srv/{{ nfs_server }}/video/{{ org }}/{{ show }}/{{ item }}"
-    dest: "/home/{{ user_name }}/Videos/veyepar/{{ org }}/{{ show }}/{{ item }}"
-    force: yes
-    owner: "{{ user_name }}"
-    group: "{{ user_name }}"
-  with_items:
-  - assets
-  - tmp
-  - titles
-  - custom
-  - img
-  - mlt
-  - mp4
-  - webm
 
 # - name: one key script to activete VE and cd into veyepar scripts
 - name: create ~/bin for the v script
