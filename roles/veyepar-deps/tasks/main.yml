@@ -6,7 +6,10 @@
   - python-psycopg2
   - libpq5
   - imagemagick
+  - boto
   - python3-gi
+  - google-api-python-client
+  - internetarchive
   - gstreamer1.0-tools
   - gir1.2-gstreamer-1.0
   - gir1.2-gst-plugins-base-1.0
