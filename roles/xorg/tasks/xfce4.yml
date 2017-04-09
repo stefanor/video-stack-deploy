@@ -15,7 +15,7 @@
 - name: install an XFCE icon pack (Ubuntu)
   apt:
     name: xubuntu-icon-theme
-  when: ansible_distribution == 'Ubuntu'
+  when: distro == 'Ubuntu'
 
 - name: copy xfce4 configuration script
   copy:
