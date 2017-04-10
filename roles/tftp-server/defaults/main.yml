@@ -13,5 +13,5 @@ apt_proxy: false
 web_root: /var/www/html
 
 user_name: videoteam
-user_password: RedPill
-pw_salt: U1ESiTXUQE0tFh2r4LRl
+# $ printf "r00tme" | mkpasswd -s -m md5
+user_password_hash: $1$G1uRZoLB$r68rPXmpJl/C6ervlynKa/
