@@ -28,16 +28,17 @@
   - lc
   - d-i/xenial
   - d-i/jessie
+  - d-i/stretch
 
 - name: write xenial/preseed.cfg
   template:
     src: preseed.cfg.j2
     dest: "{{ web_root }}/d-i/xenial/preseed.cfg"
 
-- name: write jessie/preseed.cfg
+- name: write stretch/preseed.cfg
   template:
     src: preseed.cfg.j2
-    dest: "{{ web_root }}/d-i/jessie/preseed.cfg"
+    dest: "{{ web_root }}/d-i/stretch/preseed.cfg"
 
 - name: push late_command.sh
   copy:
