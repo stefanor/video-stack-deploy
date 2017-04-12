@@ -3,7 +3,7 @@
   user:
     name: "{{ user_name }}"
     groups: audio,plugdev,sudo,video
-    password: "{{ user_password |password_hash('sha512', pw_salt) }}"
+    password: "{{ user_password_hash }}"
 
 - name: install sudo
   apt:
