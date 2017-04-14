@@ -1,0 +1,8 @@
+pu port             /dev/ttyACM0
+# pu baudrate         38400
+# pu baudrate         9600
+# pu rtscts           No 
+# pu xonxoff          Yes
+
+pu addcarreturn     Yes
+
