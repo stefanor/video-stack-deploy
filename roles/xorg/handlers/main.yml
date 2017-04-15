@@ -7,3 +7,4 @@
   command: "/bin/systemctl restart lightdm.service"
   become: true
   become_user: "{{ user_name }}"
+  when: ansible_env.ANSIBLE_UNDER_DI is undefined
