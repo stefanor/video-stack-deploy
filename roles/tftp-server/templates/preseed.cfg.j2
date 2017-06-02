@@ -435,7 +435,7 @@ d-i preseed/early_command string cd /tmp && wget http://$url/ec/early_command.sh
 # still a usable /target directory. You can chroot to /target and use it
 # directly, or use the apt-install and in-target commands to easily install
 # packages and run commands in the target system.
-d-i preseed/late_command string cd /target/tmp && wget http://$url/lc/late.sh && chmod u+x late.sh && chroot /target unset http_proxy; ANSIBLE_UNDER_DI=1 /tmp/late.sh $(debconf-get mirror/suite) $(debconf-get passwd/username)
+d-i preseed/late_command string cd /target/tmp && wget http://$url/lc/late_command.sh && chmod u+x late_command.sh && chroot /target unset http_proxy; ANSIBLE_UNDER_DI=1 /tmp/late_command.sh $(debconf-get mirror/suite) $(debconf-get passwd/username)
 
 {% if late_command_url.startswith('tftp://') %}
 # d-i preseed/late_command string in-target sh -c "curl -o penultimate_setup.sh '{{ late_command_url }}' && ANSIBLE_UNDER_DI=1 sh penultimate_setup.sh && rm penultimate_setup.sh"
