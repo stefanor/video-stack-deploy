@@ -12,7 +12,6 @@
   file:
     path: /etc/lightdm/lightdm.conf.d
     state: directory
-  when: distro=="Debian"
 
 - name: configure lightdm autologin
   template:
