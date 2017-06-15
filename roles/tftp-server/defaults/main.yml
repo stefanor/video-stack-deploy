@@ -15,3 +15,8 @@ web_root: /var/www/html
 user_name: videoteam
 # $ printf "r00tme" | mkpasswd -s -m md5
 user_password_hash: $1$G1uRZoLB$r68rPXmpJl/C6ervlynKa/
+
+# What Distro to install?
+# Debian or Ubuntu
+distro: Debian
+
