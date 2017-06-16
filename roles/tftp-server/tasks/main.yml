@@ -25,7 +25,6 @@
     # owner:  "{{ user_name }}"
     # group:  "{{ user_name }}"
   with_items:
-  - lc
   - d-i/xenial
   - d-i/jessie
   - d-i/stretch
@@ -43,7 +42,7 @@
 - name: push late_command.sh
   copy:
     src: files/late_command.sh
-    dest: "{{ web_root }}/lc/late_command.sh"
+    dest: "{{ web_root }}/late_command.sh"
 
 - name: inject preseed into menu (find files)
   find:

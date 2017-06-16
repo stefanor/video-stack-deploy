@@ -1,7 +1,6 @@
 ---
 netboot_image: https://deb.debian.org/debian/dists/stretch/main/installer-amd64/current/images/netboot/netboot.tar.gz
-# late_command_url: https://anonscm.debian.org/cgit/debconf-video/ansible.git/plain/setup_ansible.sh
-late_command_url: http://{{ inventory_hostname }}/lc/late_command.sh
+late_command_url: http://{{ inventory_hostname }}/late_command.sh
 
 time_zone: UTC
 domain: video.debconf.org
@@ -13,6 +12,7 @@ apt_proxy: false
 web_root: /var/www/html
 
 user_name: videoteam
+# how to make the hash:
 # $ printf "r00tme" | mkpasswd -s -m md5
 user_password_hash: $1$G1uRZoLB$r68rPXmpJl/C6ervlynKa/
 
